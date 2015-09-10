@@ -15,7 +15,7 @@ func check(e error) {
     }
 }
 
-var inp [16777216]int
+var inp [1<<24]int
 
 func write(name string) {
     f, err := os.Create(name)
@@ -40,7 +40,7 @@ func writeCompress(name string) {
 
 func main() {
     for i := range inp {
-        inp[i]=rand.Intn(16777216)
+        inp[i]=rand.Intn(1<<32)
     }
     write("input.dat")
 
@@ -50,7 +50,7 @@ func main() {
 
     fmt.Println("inp sorted:   ", inp[16777206:16777215])
     
-    for i := 16777216-1; i > 0; i-- {
+    for i := 1<<24-1; i > 0; i-- {
         inp[i] = inp[i] - inp[i-1]
     }
 
@@ -60,7 +60,7 @@ func main() {
 
     writeCompress("compr.dat")
 
-    for i := 1; i < 16777216; i++ {
+    for i := 1; i < 1<<24; i++ {
         inp[i] = inp[i] + inp[i-1]
     }
 
